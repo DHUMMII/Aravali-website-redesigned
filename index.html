@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aravali International School</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Landing Page */
+        .landing-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Rotating Logo Background */
+        .rotating-logo {
+            position: absolute;
+            width: 90vw;
+            height: 90vh;
+            opacity: 0.07;
+            z-index: 0;
+            animation: rotate 120s linear infinite;
+            pointer-events: none;
+        }
+
+        .rotating-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: invert(1);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Main Content */
+        .landing-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #e63946;
+            letter-spacing: 1px;
+        }
+
+        .tagline span {
+            font-weight: 600;
+        }
+
+        .motto {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 3rem 0;
+            color: #f5f5f5;
+            letter-spacing: 3px;
+        }
+
+        .motto span {
+            color: #e63946;
+            margin: 0 10px;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 0 20px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .scroll-indicator:hover {
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            color: #e63946;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .red-dot {
+            width: 60px;
+            height: 60px;
+            background-color: #e63946;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(230, 57, 70, 0.4);
+        }
+
+        .red-dot i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(230, 57, 70, 0.4); }
+            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(230, 57, 70, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(230, 57, 70, 0.4); }
+        }
+
+        /* Campuses Page */
+        .campuses-page {
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .campuses-header {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .campuses-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .campuses-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #ffffff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .campuses-title::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 4px;
+            background-color: #e63946;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .campuses-subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        /* Campus Grid */
+        .campuses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .campus-card {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            background-color: #1a1a1a;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .campus-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .campus-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .campus-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+
+        .campus-card:hover .campus-image {
+            transform: scale(1.1);
+        }
+
+        .campus-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
+            transition: all 0.6s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .campus-card:hover .campus-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .campus-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .campus-location {
+            font-size: 1.1rem;
+            color: #e63946;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .campus-location i {
+            margin-right: 10px;
+        }
+
+        .campus-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease;
+        }
+
+        .campus-card:hover .campus-description {
+            max-height: 200px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-title {
+                font-size: 3.5rem;
+            }
+            
+            .motto {
+                font-size: 2rem;
+            }
+            
+            .description {
+                font-size: 1.1rem;
+            }
+            
+            .campuses-title {
+                font-size: 3rem;
+            }
+            
+            .campuses-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.4rem;
+            }
+            
+            .motto {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+            }
+            
+            .description {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .campuses-title {
+                font-size: 2.5rem;
+            }
+            
+            .campuses-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .campus-card {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .motto {
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+            
+            .description {
+                font-size: 0.95rem;
+            }
+            
+            .campuses-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e63946;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d62839;
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <section id="landing" class="landing-page">
+        <!-- Rotating Logo Background -->
+        <div class="rotating-logo">
+            <img src="assets/logo.jfif" alt="Aravali International School Logo">
+        </div>
+
+        <!-- Main Content -->
+        <div class="landing-content">
+            <h1 class="main-title">Welcome to Aravali International School</h1>
+            
+            <div class="tagline">
+                <span>Believe In Yourself</span>, embrace challenges,<br>
+                And <span>Reach For The Stars</span>!
+            </div>
+            
+            <div class="motto">
+                Learn <span>•</span> Adapt <span>•</span> Grow
+            </div>
+            
+            <p class="description">
+                Our institution fosters a culture of innovation and inspiration, encouraging students to imagine endless possibilities, initiate change, and lead with confidence. Through learning and problem-solving, we empower individuals to unlock their potential and make a difference in the world.
+            </p>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <a href="#campuses" class="scroll-indicator">
+            <div class="scroll-text">Explore Our Presence</div>
+            <div class="red-dot">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </a>
+    </section>
+
+    <!-- Campuses Page -->
+    <section id="campuses" class="campuses-page">
+        <div class="campuses-header" id="campusesHeader">
+            <h2 class="campuses-title">Our Presence</h2>
+            <p class="campuses-subtitle">Discover our four campuses, each designed to provide exceptional educational experiences in state-of-the-art facilities.</p>
+        </div>
+
+        <div class="campuses-grid">
+            <!-- Campus 1 -->
+            <div class="campus-card" id="campus1">
+                <img src="assets/sec43.jfif" alt="Sector 43 Campus" class="campus-image">
+                <div class="campus-overlay">
+                    <h3 class="campus-name">Sector 43 Campus</h3>
+                    <div class="campus-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Faridabad, Haryana
+                    </div>
+                    <p class="campus-description">
+                        Our flagship campus featuring advanced science laboratories, digital classrooms, and extensive sports facilities. Home to our senior secondary program with specialized streams in Science, Commerce, and Humanities.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Campus 2 -->
+            <div class="campus-card" id="campus2">
+                <img src="assets/sec81.jfif" alt="Sector 81 Campus" class="campus-image">
+                <div class="campus-overlay">
+                    <h3 class="campus-name">Sector 81 Campus</h3>
+                    <div class="campus-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Faridabad, Haryana
+                    </div>
+                    <p class="campus-description">
+                        Dedicated to primary and middle school education with child-centric infrastructure, interactive learning zones, and creative arts studios. Focus on foundational skills and holistic development.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Campus 3 -->
+            <div class="campus-card" id="campus3">
+                <img src="assets/sec85.jfif" alt="Sector 85 Campus" class="campus-image">
+                <div class="campus-overlay">
+                    <h3 class="campus-name">Sector 85 Campus</h3>
+                    <div class="campus-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Faridabad, Haryana
+                    </div>
+                    <p class="campus-description">
+                        Technology-focused campus with robotics labs, computer programming centers, and innovation hubs. Offers specialized programs in STEM education and digital literacy for all age groups.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Campus 4 -->
+            <div class="campus-card" id="campus4">
+                <img src="assets/panchkula.jfif" alt="Panchkula Campus" class="campus-image">
+                <div class="campus-overlay">
+                    <h3 class="campus-name">Panchkula Campus</h3>
+                    <div class="campus-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        DLF Valley, Panchkula
+                    </div>
+                    <p class="campus-description">
+                        Our newest international campus offering globally recognized curricula, language immersion programs, and cultural exchange opportunities. Features Olympic-sized swimming pool and performing arts theater.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll enhancement
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Trigger campus page animations after scroll
+                        if (targetId === '#campuses') {
+                            setTimeout(() => {
+                                triggerCampusAnimations();
+                            }, 800);
+                        }
+                    }
+                });
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'campusesHeader') {
+                            entry.target.classList.add('visible');
+                        }
+                        
+                        if (entry.target.classList.contains('campus-card')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, parseInt(entry.target.id.replace('campus', '')) * 200);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements
+            const campusesHeader = document.getElementById('campusesHeader');
+            const campusCards = document.querySelectorAll('.campus-card');
+            
+            if (campusesHeader) observer.observe(campusesHeader);
+            campusCards.forEach(card => observer.observe(card));
+
+            // Trigger campus animations on scroll to campuses section
+            function triggerCampusAnimations() {
+                if (campusesHeader) campusesHeader.classList.add('visible');
+                
+                campusCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                });
+            }
+
+            // Enhanced hover effects for campus cards
+            campusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Auto-trigger campus animations if user scrolls manually
+            window.addEventListener('scroll', function() {
+                const campusesSection = document.getElementById('campuses');
+                if (campusesSection) {
+                    const rect = campusesSection.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8 && rect.bottom > 0) {
+                        triggerCampusAnimations();
+                    }
+                }
+            });
+
+            // Initial landing page animations
+            setTimeout(() => {
+                const landingContent = document.querySelector('.landing-content');
+                landingContent.style.opacity = '0';
+                landingContent.style.transform = 'translateY(20px)';
+                landingContent.style.transition = 'opacity 1s ease, transform 1s ease';
+                
+                setTimeout(() => {
+                    landingContent.style.opacity = '1';
+                    landingContent.style.transform = 'translateY(0)';
+                }, 300);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
